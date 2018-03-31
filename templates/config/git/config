@@ -1,0 +1,10 @@
+[user]
+	name = Kai Zhang
+	email = kaizhang91@foxmail.com
+	signingkey = kaizhang91@foxmail.com
+
+[core]
+	quotepath = false
+
+[commit]
+	gpgsign = true
