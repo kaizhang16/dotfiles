@@ -21,7 +21,10 @@ description:         Please see the README on Github at <https://github.com/kaiz
 
 dependencies:
 - base >= 4.7 && < 5
-- turtle
+- foldl >= 1.3
+- system-filepath >= 0.4
+- text >= 1.2
+- turtle >= 1.5
 
 library:
   source-dirs: src
