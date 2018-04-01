@@ -20,15 +20,18 @@ data Template = Template
   , templateDest :: TT.FilePath
   } deriving (Show)
 
-templatesDir :: TT.FilePath
-templatesDir = "templates/"
-
-getTemplates :: IO (Maybe [Template])
-getTemplates = do
-  files <- TT.fold (TT.lstree templatesDir) F.list
-  files' <- M.filterM TT.testfile files
-  home <- TT.home
-  return $ mapM (src2Template home) files'
+getTemplates :: TT.FilePath -> IO (Maybe [Template])
+getTemplates templatesDir =
+  case (T.last . filePath2Text) templatesDir of
+    '/' -> getTemplates' templatesDir
+    _ ->
+      getTemplates' (text2FilePath (T.append (filePath2Text templatesDir) "/"))
+  where
+    getTemplates' templatesDir' = do
+      files <- TT.fold (TT.lstree templatesDir') F.list
+      files' <- M.filterM TT.testfile files
+      home <- TT.home
+      return $ mapM (src2Template templatesDir' home) files'
 
 link :: Template -> IO ()
 link t = do
@@ -43,15 +46,16 @@ link t = do
     (filePath2Text src)
     ((filePath2Text . templateDest) t)
 
-src2Template :: TT.FilePath -> TT.FilePath -> Maybe Template
-src2Template home src =
+src2Template :: TT.FilePath -> TT.FilePath -> TT.FilePath -> Maybe Template
+src2Template templatesDir home src =
   case T.stripPrefix (filePath2Text templatesDir) (filePath2Text src) of
     Just file ->
       Just
         Template
           { templateSrc = src
           , templateDest =
-              text2FilePath $ T.concat [filePath2Text home, "/.", file]
+              text2FilePath $
+              T.concat [filePath2Text home, "/.", file]
           }
     Nothing -> Nothing
 
