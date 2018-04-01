@@ -11,6 +11,7 @@ main :: IO ()
 main = do
   templatesDir <- TT.options "Deploy dotfiles to home directory" parser
   maybeTemplates <- D.getTemplates templatesDir
+  -- print maybeTemplates
   case maybeTemplates of
     Just templates -> do
       _ <- mapM_ D.link templates

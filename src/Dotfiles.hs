@@ -18,7 +18,14 @@ import qualified Turtle        as TT
 data Template = Template
   { templateSrc  :: TT.FilePath
   , templateDest :: TT.FilePath
+  , templateType :: TemplateType
   } deriving (Show)
+
+data TemplateType
+  = Linux
+  | Darwin
+  | Common
+  deriving (Show)
 
 getTemplates :: TT.FilePath -> IO (Maybe [Template])
 getTemplates templatesDir =
@@ -36,6 +43,7 @@ getTemplates templatesDir =
 link :: Template -> IO ()
 link t = do
   src <- (TT.realpath . templateSrc) t
+  mkDestParentDir t
   TT.stdout $
     TT.inproc
       "ln"
@@ -46,18 +54,43 @@ link t = do
     (filePath2Text src)
     ((filePath2Text . templateDest) t)
 
+mkDestParentDir :: Template -> IO ()
+mkDestParentDir t = do
+  ok <- TT.testdir destParent
+  if ok
+    then return ()
+    else TT.mktree destParent
+  where
+    destParent = (TT.parent . templateDest) t
+
 src2Template :: TT.FilePath -> TT.FilePath -> TT.FilePath -> Maybe Template
 src2Template templatesDir home src =
   case T.stripPrefix (filePath2Text templatesDir) (filePath2Text src) of
-    Just file ->
-      Just
-        Template
-          { templateSrc = src
-          , templateDest =
-              text2FilePath $
-              T.concat [filePath2Text home, "/.", file]
-          }
     Nothing -> Nothing
+    Just file ->
+      case normalizeFile templateType' file of
+        Nothing -> Nothing
+        Just file' ->
+          Just
+            Template
+              { templateSrc = src
+              , templateDest =
+                  text2FilePath $ T.concat [filePath2Text home, "/.", file']
+              , templateType = templateType'
+              }
+  where
+    templateType' = getTemplateType src
+    normalizeFile Linux  = T.stripSuffix "_linux"
+    normalizeFile Darwin = T.stripSuffix "_darwin"
+    normalizeFile _      = Just
+
+getTemplateType :: TT.FilePath -> TemplateType
+getTemplateType src
+  | T.isSuffixOf "_linux" src' = Linux
+  | T.isSuffixOf "_darwin" src' = Darwin
+  | otherwise = Common
+  where
+    src' = filePath2Text src
 
 filePath2Text :: TT.FilePath -> T.Text
 filePath2Text = TT.format TT.fp
