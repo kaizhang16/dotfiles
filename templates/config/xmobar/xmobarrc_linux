@@ -1,0 +1,67 @@
+Config { 
+
+   -- appearance
+     font =         "xft:WenQuanYi Micro Hei Mono:size=15:bold,Font Awesome 5 Free:size=15:style=Solid,Font Awesome 5 Brands:size=15"
+   , bgColor =      "black"
+   , fgColor =      "#646464"
+   , position =     TopW L 90
+   , alpha = 190
+
+   -- layout
+   , sepChar =  "%"   -- delineator between plugin names and straight text
+   , alignSep = "}{"  -- separator between left-right alignment
+   , template = "%StdinReader% }{ %battery% | %cpu% | %memory% | %dynnetwork% | %date%"
+
+   -- plugins
+   , commands = 
+        -- network activity monitor (dynamic interface resolution)
+        [ Run DynNetwork     [ "--template" , "\xf062 <tx> kB/s \xf063 <rx> kB/s"
+                             , "--Low"      , "1000"       -- units: B/s
+                             , "--High"     , "5000"       -- units: B/s
+                             , "--low"      , "darkgreen"
+                             , "--normal"   , "darkorange"
+                             , "--high"     , "darkred"
+                             ] 10
+
+        -- cpu load
+        , Run Cpu            [ "--template", "\xf2db <total>%"
+                             , "--Low"      , "50"  -- units: %
+                             , "--High"     , "85"  -- units: %
+                             , "--low"      , "darkgreen"
+                             , "--normal"   , "darkorange"
+                             , "--high"     , "darkred"
+                             ] 10
+
+        -- memory usage monitor
+        , Run Memory         [ "--template" ,"Mem: <usedratio>%"
+                             , "--Low"      , "20"        -- units: %
+                             , "--High"     , "90"        -- units: %
+                             , "--low"      , "darkgreen"
+                             , "--normal"   , "darkorange"
+                             , "--high"     , "darkred"
+                             ] 10
+
+        -- battery monitor
+        , Run Battery        [ "--template" , "\xf240 <acstatus>"
+                             , "--Low"      , "10"        -- units: %
+                             , "--High"     , "80"        -- units: %
+                             , "--low"      , "darkred"
+                             , "--normal"   , "darkorange"
+                             , "--high"     , "darkgreen"
+
+                             , "--" -- battery specific options
+                                       -- discharging status
+                                       , "-o"	, "<left>%"
+                                       -- AC "on" status
+                                       , "-O"	, "<fc=#dAA520>Charging</fc>"
+                                       -- charged status
+                                       , "-i"	, "<fc=#006000>Charged</fc>"
+                             ] 50
+
+        -- time and date indicator 
+        --   (%F = y-m-d date, %a = day of week, %T = h:m:s time)
+        , Run Date           "<fc=#ABABAB>%F %T</fc>" "date" 10
+
+        , Run StdinReader
+        ]
+   }
