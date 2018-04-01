@@ -5,6 +5,7 @@ module Dotfiles
   , getTemplates
   , infoFormat
   , link
+  , uname
   ) where
 
 import qualified Control.Foldl as F
@@ -25,7 +26,7 @@ data TemplateType
   = Linux
   | Darwin
   | Common
-  deriving (Show)
+  deriving (Eq, Read, Show)
 
 getTemplates :: TT.FilePath -> IO (Maybe [Template])
 getTemplates templatesDir =
@@ -40,19 +41,23 @@ getTemplates templatesDir =
       home <- TT.home
       return $ mapM (src2Template templatesDir' home) files'
 
-link :: Template -> IO ()
-link t = do
-  src <- (TT.realpath . templateSrc) t
-  mkDestParentDir t
-  TT.stdout $
-    TT.inproc
-      "ln"
-      ["-sf", filePath2Text src, (filePath2Text . templateDest) t]
-      TT.empty
-  printf
-    (infoFormat "%s -> %s\n")
-    (filePath2Text src)
-    ((filePath2Text . templateDest) t)
+link :: TemplateType -> Template -> IO ()
+link osType t
+  | (tType == osType) || (tType == Common) = do
+    src <- (TT.realpath . templateSrc) t
+    mkDestParentDir t
+    TT.stdout $
+      TT.inproc
+        "ln"
+        ["-sf", filePath2Text src, (filePath2Text . templateDest) t]
+        TT.empty
+    printf
+      (infoFormat "%s -> %s\n")
+      (filePath2Text src)
+      ((filePath2Text . templateDest) t)
+  | otherwise = return ()
+  where
+    tType = templateType t
 
 mkDestParentDir :: Template -> IO ()
 mkDestParentDir t = do
@@ -112,3 +117,10 @@ infoFormat s = green <> s <> noColor
 
 errorFormat :: String -> String
 errorFormat s = red <> s <> noColor
+
+uname :: IO (Maybe TemplateType)
+uname = do
+  osType <- TT.fold (TT.inproc "uname" [] TT.empty) F.list
+  case length osType of
+    1 -> return $ (Just . read . T.unpack . TT.lineToText . head) osType
+    _ -> return Nothing
