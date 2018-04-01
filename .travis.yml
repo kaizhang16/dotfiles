@@ -1,0 +1,28 @@
+sudo: false
+language: generic
+cache:
+  directories:
+  - "$HOME/.stack"
+addons:
+  apt:
+    packages:
+    - libgmp-dev
+before_install:
+- mkdir -p ~/.local/bin
+- export PATH=$HOME/.local/bin:$PATH
+- travis_retry curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
+install:
+- stack --no-terminal --install-ghc test --only-dependencies
+script:
+- stack --no-terminal test --haddock --no-haddock-deps
+- stack --no-terminal install
+- mv ~/.local/bin/dotfiles .
+- tar -cvJf dotfiles.tar.xz dotfiles templates
+deploy:
+  provider: releases
+  api_key:
+    secure: LRtEoVum5rYUJqkDr4+ZI70ySCwWTfw5d9Nv5J5lIaPouWgZSI2+f/XhPCH+jBr3kgrYVyL85SIY0WnPaT50MilXAzJNjboGz+gTRRnXhvyRT32LCmPyGmUMviuFDMIV1Pn54NaORmBxsPk6tT/YhrzHjQb/WktCuSgyMgaEC16JumjU0ouykDp7RsqFNwYHkEigx340DiEbC/rzzMBD3E/L3oYS5kC3eU6yYwWaf36fTysRKEg7JkwonAJENF8WbFm+ycEHNqkr+cLBxia3B5G7LLhhrp+QcFV0m1um49hnLl9lj+3D/RsI4rVR3tvj32wtv8v6wSClBJpExcs8hLtI8Uk7BlKNUY07v0NABsN+d24UUcEOi8dqBNg0Fq9D1hjj2cFMB66fr1/bDvkTRncPheNQiFnPuHFiZSPQs3ivKZOlZ5++WQadu3d6WJgmqswW8QzH/04SWSBZSfVQ6rhHgtr1gKk+bHlWvcAxAdS3YLcQD2TJHAF3Tem+JD411Lyx+FoDlNlgzQOT0t6nfNUBw3jBon33zQl3QgFA9IiMSjss7CV+Pw8c+3v17JmyIKs6KOpfPkSzL2mRBNEt8G1jOhdwenat7dsf9JUGOoQSyuVwMtjtQDjjh43lq2M8VyJwKmVQRM4DQshdYAfb+coscveo5e6ZSu2EFoiYGMw=
+  file: dotfiles.tar.xz
+  on:
+    repo: kaizhang91/dotfiles
+    tags: true
