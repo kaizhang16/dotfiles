@@ -1,0 +1,67 @@
+{
+  packageOverrides = pkgs: with pkgs; {
+    myPackages = pkgs.buildEnv {
+      name = "my-packages";
+      paths = [
+        ansible
+        aspell
+        aspellDicts.en
+        binutils
+        cabal2nix
+        cabal-install
+        dep
+        docker_compose
+        elmPackages.elm
+        elmPackages.elm-compiler
+        elmPackages.elm-format
+        elmPackages.elm-make
+        elmPackages.elm-package
+        elmPackages.elm-reactor
+        elmPackages.elm-repl
+        emacs
+        fd
+        fish
+        ghc
+        git
+        gnumake
+        go
+        graphviz
+        haskellPackages.apply-refact
+        haskellPackages.dhall
+        haskellPackages.ghc-mod
+        haskellPackages.hakyll
+        haskellPackages.hasktags
+        haskellPackages.hindent
+        haskellPackages.hlint
+        haskellPackages.hoogle
+        haskellPackages.intero
+        haskellPackages.pandoc-crossref
+        haskellPackages.pandoc-citeproc
+        haskellPackages.stylish-haskell
+        htop
+        iftop
+        inetutils
+        nodejs
+        nodePackages.eslint
+        nodePackages.js-beautify
+        nodePackages.npm
+        nodePackages.tern
+        pandoc
+        python
+        python3
+        R
+        ripgrep
+        source-han-sans-simplified-chinese
+        source-han-serif-simplified-chinese
+        stack
+        taskwarrior
+        texlive.combined.scheme-full
+        tree
+        vim
+        wqy_microhei
+        wqy_zenhei
+        yarn
+      ];
+    };
+  };
+}

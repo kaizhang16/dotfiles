@@ -73,21 +73,27 @@ src2Template templatesDir home src =
   case T.stripPrefix (filePath2Text templatesDir) (filePath2Text src) of
     Nothing -> Nothing
     Just file ->
-      case normalizeFile templateType' file of
+      case normalizeSrc templateType' (dropExtension file) of
         Nothing -> Nothing
         Just file' ->
           Just
             Template
               { templateSrc = src
               , templateDest =
-                  text2FilePath $ T.concat [filePath2Text home, "/.", file']
+                  text2FilePath $
+                  T.concat [filePath2Text home, "/.", file', srcExtension]
               , templateType = templateType'
               }
   where
     templateType' = getTemplateType src
-    normalizeFile Linux  = T.stripSuffix "_linux"
-    normalizeFile Darwin = T.stripSuffix "_darwin"
-    normalizeFile _      = Just
+    srcExtension =
+      case TT.extension src of
+        Nothing  -> ""
+        Just ext -> "." <> ext
+    dropExtension = filePath2Text . TT.dropExtension . text2FilePath
+    normalizeSrc Linux  = T.stripSuffix "_linux"
+    normalizeSrc Darwin = T.stripSuffix "_darwin"
+    normalizeSrc _      = Just
 
 getTemplateType :: TT.FilePath -> TemplateType
 getTemplateType src
@@ -95,7 +101,7 @@ getTemplateType src
   | T.isSuffixOf "_darwin" src' = Darwin
   | otherwise = Common
   where
-    src' = filePath2Text src
+    src' = filePath2Text (TT.dropExtension src)
 
 filePath2Text :: TT.FilePath -> T.Text
 filePath2Text = TT.format TT.fp

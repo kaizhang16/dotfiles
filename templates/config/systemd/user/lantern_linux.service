@@ -1,0 +1,9 @@
+[Unit]                                                                                                                                           
+Description=Lantern
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/lantern -addr 127.0.0.1:8443 -socksaddr 127.0.0.1:1080
+
+[Install]
+WantedBy=default.target
