@@ -49,7 +49,7 @@ link osType t
     TT.stdout $
       TT.inproc
         "ln"
-        ["-sf", filePath2Text src, (filePath2Text . templateDest) t]
+        ["-f", filePath2Text src, (filePath2Text . templateDest) t]
         TT.empty
     printf
       (infoFormat "%s -> %s\n")
