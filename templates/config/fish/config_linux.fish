@@ -7,6 +7,7 @@ set -x LC_CTYPE zh_CN.UTF-8     # 中文处理
 set -x LC_COLLATE zh_CN.UTF-8   # 中文排序
 set -x TZ Asia/Shanghai
 set -x XDG_CONFIG_HOME $HOME/.config
+set -x RUST_SRC_PATH (rustc --print sysroot)/lib/rustlib/src/rust/src
 
 # Alias
 alias tmux "tmux -2"
