@@ -5,7 +5,7 @@
 ## Get released package
 
 ```
-version=1.1.1
+version=1.1.2
 os=linux  # or darwin
 curl -LO https://github.com/kaizhang91/dotfiles/releases/download/${version}/dotfiles-${os}.tar.xz
 tar -xvJf dotfiles-${os}.tar.xz
