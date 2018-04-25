@@ -27,7 +27,7 @@ main = dotfiles =<< execParser opts
     opts =
       info
         (options <**> helper)
-        (fullDesc <> progDesc "Deploy the dot configuration TEMPLATES" <>
+        (fullDesc <> progDesc "Deploy the dotfiles from TEMPLATES_PATH to $HOME" <>
          header "dotfiles - a configuration files manager")
 
 dotfiles :: Options -> IO ()
