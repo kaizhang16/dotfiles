@@ -1,24 +1,24 @@
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE ExtendedDefaultRules #-}
+{-# LANGUAGE OverloadedStrings    #-}
+{-# OPTIONS_GHC -fno-warn-type-defaults #-}
 
 module Dotfiles
-  ( errorFormat
-  , getTemplates
-  , infoFormat
-  , link
-  , uname
+  ( deploy
+  , echoError
+  , echoInfo
+  , echoWarn
   ) where
 
-import qualified Control.Foldl as F
-import qualified Control.Monad as M
-import           Data.Monoid   ((<>))
-import qualified Data.String   as S
-import qualified Data.Text     as T
-import           Text.Printf   (printf)
-import qualified Turtle        as TT
+import qualified Control.Monad   as M
+import           Data.Monoid     ((<>))
+import qualified Data.Text       as T
+import qualified Filesystem.Path as P
+import qualified Shelly          as SH
+default (T.Text)
 
 data Template = Template
-  { templateSrc  :: TT.FilePath
-  , templateDest :: TT.FilePath
+  { templateSrc  :: SH.FilePath
+  , templateDest :: SH.FilePath
   , templateType :: TemplateType
   } deriving (Show)
 
@@ -28,105 +28,73 @@ data TemplateType
   | Common
   deriving (Eq, Read, Show)
 
-getTemplates :: TT.FilePath -> IO (Maybe [Template])
-getTemplates templatesDir =
-  case (T.last . filePath2Text) templatesDir of
-    '/' -> getTemplates' templatesDir
-    _ ->
-      getTemplates' (text2FilePath (T.append (filePath2Text templatesDir) "/"))
+deploy ::
+     TemplateType -> SH.FilePath -> SH.FilePath -> [SH.FilePath] -> SH.Sh ()
+deploy os templatesPath home = M.mapM_ deploy'
   where
-    getTemplates' templatesDir' = do
-      files <- TT.fold (TT.lstree templatesDir') F.list
-      files' <- M.filterM TT.testfile files
-      home <- TT.home
-      return $ mapM (src2Template templatesDir' home) files'
+    deploy' src =
+      case src2Template src templatesPath home of
+        Nothing -> SH.errorExit ("Bad format: " <> SH.toTextIgnore src)
+        Just t  -> deploy'' t
+    deploy'' t
+      | (templateType t == os) || (templateType t == Common) = do
+        SH.mkdir_p (P.parent (templateDest t))
+        SH.cmd "cp" "-f" (templateSrc t) (templateDest t)
+      | otherwise =
+        echoWarn ("Ignore " <> (SH.toTextIgnore . templateSrc) t <> ".")
 
-link :: TemplateType -> Template -> IO ()
-link osType t
-  | (tType == osType) || (tType == Common) = do
-    src <- (TT.realpath . templateSrc) t
-    mkDestParentDir t
-    TT.stdout $
-      TT.inproc
-        "ln"
-        ["-f", filePath2Text src, (filePath2Text . templateDest) t]
-        TT.empty
-    printf
-      (infoFormat "%s -> %s\n")
-      (filePath2Text src)
-      ((filePath2Text . templateDest) t)
-  | otherwise = return ()
-  where
-    tType = templateType t
-
-mkDestParentDir :: Template -> IO ()
-mkDestParentDir t = do
-  ok <- TT.testdir destParent
-  if ok
-    then return ()
-    else TT.mktree destParent
-  where
-    destParent = (TT.parent . templateDest) t
-
-src2Template :: TT.FilePath -> TT.FilePath -> TT.FilePath -> Maybe Template
-src2Template templatesDir home src =
-  case T.stripPrefix (filePath2Text templatesDir) (filePath2Text src) of
+src2Template :: SH.FilePath -> SH.FilePath -> SH.FilePath -> Maybe Template
+src2Template src templatesPath home =
+  case T.stripPrefix (SH.toTextIgnore templatesPath) (SH.toTextIgnore src) of
     Nothing -> Nothing
-    Just file ->
-      case normalizeSrc templateType' (dropExtension file) of
+    Just src' ->
+      case normalizeSrc templateType' (dropExtension src') of
         Nothing -> Nothing
         Just file' ->
           Just
             Template
               { templateSrc = src
               , templateDest =
-                  text2FilePath $
-                  T.concat [filePath2Text home, "/.", file', srcExtension]
+                  SH.fromText $
+                  T.concat [SH.toTextIgnore home, "/.", file', srcExtension]
               , templateType = templateType'
               }
   where
     templateType' = getTemplateType src
     srcExtension =
-      case TT.extension src of
+      case P.extension src of
         Nothing  -> ""
         Just ext -> "." <> ext
-    dropExtension = filePath2Text . TT.dropExtension . text2FilePath
+    dropExtension = SH.toTextIgnore . P.dropExtension . SH.fromText
     normalizeSrc Linux  = T.stripSuffix "_linux"
     normalizeSrc Darwin = T.stripSuffix "_darwin"
     normalizeSrc _      = Just
 
-getTemplateType :: TT.FilePath -> TemplateType
+getTemplateType :: SH.FilePath -> TemplateType
 getTemplateType src
   | T.isSuffixOf "_linux" src' = Linux
   | T.isSuffixOf "_darwin" src' = Darwin
   | otherwise = Common
   where
-    src' = filePath2Text (TT.dropExtension src)
+    src' = SH.toTextIgnore (P.dropExtension src)
 
-filePath2Text :: TT.FilePath -> T.Text
-filePath2Text = TT.format TT.fp
-
-text2FilePath :: T.Text -> TT.FilePath
-text2FilePath = S.fromString . T.unpack
-
-red :: String
+red :: T.Text
 red = "\x1b[31m"
 
-green :: String
+green :: T.Text
 green = "\x1b[32m"
 
-noColor :: String
+yellow :: T.Text
+yellow = "\x1b[33m"
+
+noColor :: T.Text
 noColor = "\x1b[0m"
 
-infoFormat :: String -> String
-infoFormat s = green <> s <> noColor
+echoError :: T.Text -> SH.Sh ()
+echoError msg = SH.echo (red <> msg <> noColor)
 
-errorFormat :: String -> String
-errorFormat s = red <> s <> noColor
+echoInfo :: T.Text -> SH.Sh ()
+echoInfo msg = SH.echo (green <> msg <> noColor)
 
-uname :: IO (Maybe TemplateType)
-uname = do
-  osType <- TT.fold (TT.inproc "uname" [] TT.empty) F.list
-  case length osType of
-    1 -> return $ (Just . read . T.unpack . TT.lineToText . head) osType
-    _ -> return Nothing
+echoWarn :: T.Text -> SH.Sh ()
+echoWarn msg = SH.echo (yellow <> msg <> noColor)

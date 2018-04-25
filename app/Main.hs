@@ -1,25 +1,48 @@
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE ExtendedDefaultRules #-}
+{-# LANGUAGE OverloadedStrings    #-}
+{-# OPTIONS_GHC -fno-warn-type-defaults #-}
 
 module Main where
 
-import qualified Data.Text   as T
-import qualified Dotfiles    as D
-import           Text.Printf (printf)
-import qualified Turtle      as TT
+import           Data.Semigroup      ((<>))
+import qualified Data.Text           as T
+import qualified Dotfiles            as D
+import           Options.Applicative
+import           Shelly
+default (T.Text)
+
+newtype Options = Options
+  { templatesPath :: String
+  }
+
+options :: Parser Options
+options =
+  Options <$>
+  argument str (metavar "TEMPLATES_PATH" <> help "The templates path")
+
 
 main :: IO ()
-main = do
-  maybeOSType <- D.uname
-  case maybeOSType of
-    Nothing -> TT.die ((T.pack . D.errorFormat) "No OS type found")
-    Just osType -> do
-      templatesDir <- TT.options "Deploy dotfiles to home directory" parser
-      maybeTemplates <- D.getTemplates templatesDir
-      case maybeTemplates of
-        Just templates -> do
-          _ <- mapM_ (D.link osType) templates
-          printf (D.infoFormat "Succeed.\n")
-        Nothing -> TT.die ((T.pack . D.errorFormat) "No template found")
+main = dotfiles =<< execParser opts
+  where
+    opts =
+      info
+        (options <**> helper)
+        (fullDesc <> progDesc "Deploy the dot configuration TEMPLATES" <>
+         header "dotfiles - a configuration files manager")
 
-parser :: TT.Parser TT.FilePath
-parser = TT.argPath "templates_dir" "The templates directory"
+dotfiles :: Options -> IO ()
+dotfiles (Options templatesPath') =
+  shelly $
+  verbosely $ do
+    os <- cmd "uname"
+    maybeHome <- get_env "HOME"
+    case maybeHome of
+      Nothing -> errorExit "$HOME is empty."
+      Just home -> do
+        templates <- findWhen test_f ((fromText . T.pack) templatesPath')
+        D.deploy
+          ((read . T.unpack) os)
+          ((fromText . T.pack) templatesPath')
+          (fromText home)
+          templates
+        D.echoInfo "Succeed."
