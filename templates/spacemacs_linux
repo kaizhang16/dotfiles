@@ -49,10 +49,12 @@ values."
      html
      (markdown :variables
                markdown-live-preview-engine 'vmd)
+     javascript
      octave
      org
      (python :variables
              python-enable-yapf-format-on-save t)
+     ruby
      (rust :variables
            rust-format-on-save t)
      ;; (shell :variables
