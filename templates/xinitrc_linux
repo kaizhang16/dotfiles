@@ -16,5 +16,8 @@ fcitx &
 # Albert
 albert &
 
+# Clipboard
+gpaste-client start
+
 # xmonad
 exec xmonad

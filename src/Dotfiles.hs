@@ -39,7 +39,7 @@ deploy os templatesPath home = M.mapM_ deploy'
     deploy'' t
       | (templateType t == os) || (templateType t == Common) = do
         SH.mkdir_p (P.parent (templateDest t))
-        SH.cmd "cp" "-f" (templateSrc t) (templateDest t)
+        SH.cmd "ln" "-f" (templateSrc t) (templateDest t)
       | otherwise =
         echoWarn ("Ignore " <> (SH.toTextIgnore . templateSrc) t <> ".")
 
