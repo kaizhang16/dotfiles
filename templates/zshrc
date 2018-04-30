@@ -55,14 +55,14 @@ function promptPyVirtualEnv {
 }
 
 function mergeSpaces {
-    echo $1 | sed -n "s/ \+/ /gp"
+    echo $1 | sed -e "s/ \+/ /g" -e "s/ $//"
 }
 
 local return_code="%(?..%F{red}%? ↵%f)"
 local user_host="${PR_USER}%F{cyan}@${PR_HOST}"
 local current_dir="%B%F{blue}%~%f%b"
 PROMPT='$(mergeSpaces "╭─${user_host} ${current_dir} $(git_super_status) $(promptPyVirtualEnv)")
-$(mergeSpaces "╰─$PR_PROMPT ")'
+$(mergeSpaces "╰─$PR_PROMPT ") '
 RPROMPT='${return_code}'
 
 # Alias
