@@ -34,15 +34,18 @@ dotfiles :: Options -> IO ()
 dotfiles (Options templatesPath') =
   shelly $
   verbosely $ do
+    templatesPath'' <- cmd "realpath" ((fromText . T.pack) templatesPath')
     os <- cmd "uname"
     maybeHome <- get_env "HOME"
+
+    let templatesPath''' = fromText (T.strip templatesPath'' <> "/")
     case maybeHome of
       Nothing -> errorExit "$HOME is empty."
       Just home -> do
-        templates <- findWhen test_f ((fromText . T.pack) templatesPath')
+        templates <- findWhen test_f templatesPath'''
         D.deploy
           ((read . T.unpack) os)
-          ((fromText . T.pack) templatesPath')
+          templatesPath'''
           (fromText home)
           templates
         D.echoInfo "Succeed."
