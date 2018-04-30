@@ -12,11 +12,21 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
+###############
 # My
+###############
+# antigen-hs
 source ~/.zsh/antigen-hs/init.zsh
+
+# Environment Variables
 export GOPATH=$HOME/apps
 export PATH=$HOME/.local/bin:$GOPATH/bin:$PATH
 export EDITOR=vim
+export LANG=en_US.UTF-8
+export LC_CTYPE=zh_CN.UTF-8     # 中文处理
+export LC_COLLATE=zh_CN.UTF-8   # 中文排序
+export TZ=Asia/Shanghai
+export XDG_CONFIG_HOME=$HOME/.config
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'
 
 # Prompt
@@ -45,3 +55,4 @@ RPROMPT='${return_code}'
 
 # Alias
 alias ls='ls --color'
+alias tmux='tmux -2'
