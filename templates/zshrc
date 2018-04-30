@@ -29,6 +29,7 @@ export LC_COLLATE=zh_CN.UTF-8   # 中文排序
 export TZ=Asia/Shanghai
 export XDG_CONFIG_HOME=$HOME/.config
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'
+export VIRTUAL_ENV_DISABLE_PROMPT=true
 
 # Prompt
 local PR_USER PR_PROMPT PR_HOST
@@ -47,13 +48,24 @@ else
     PR_HOST='%F{green}%M%f'  # No SSH
 fi
 
+function promptPyVirtualEnv {
+    if [[ "$VIRTUAL_ENV" != "" ]]; then
+        echo "($(basename $VIRTUAL_ENV))"
+    fi
+}
+
+function mergeSpaces {
+    echo $1 | sed -n "s/ \+/ /gp"
+}
+
 local return_code="%(?..%F{red}%? ↵%f)"
 local user_host="${PR_USER}%F{cyan}@${PR_HOST}"
 local current_dir="%B%F{blue}%~%f%b"
-PROMPT='╭─${user_host} ${current_dir} $(git_super_status)
-╰─$PR_PROMPT '
+PROMPT='$(mergeSpaces "╭─${user_host} ${current_dir} $(git_super_status) $(promptPyVirtualEnv)")
+$(mergeSpaces "╰─$PR_PROMPT ")'
 RPROMPT='${return_code}'
 
 # Alias
 alias ls='ls --color'
+alias ll='ls --color -l'
 alias tmux='tmux -2'
