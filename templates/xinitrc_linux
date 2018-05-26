@@ -17,7 +17,7 @@ fcitx &
 albert &
 
 # Clipboard
-gpaste-client start
+parcellite &
 
 # xmonad
 exec xmonad
