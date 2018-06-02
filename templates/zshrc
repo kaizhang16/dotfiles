@@ -19,20 +19,11 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 # antigen-hs
 source ~/.zsh/antigen-hs/init.zsh
 
-# nix
-source ~/.nix-profile/etc/profile.d/nix.sh
+# autojump
+source /etc/profile.d/autojump.zsh
 
 # Environment Variables
-export GOPATH=$HOME/apps
-export PATH=$HOME/.local/bin:$GOPATH/bin:$HOME/.yarn/bin:$PATH
-export EDITOR=vim
-export LANG=en_US.UTF-8
-export LC_CTYPE=zh_CN.UTF-8     # 中文处理
-export LC_COLLATE=zh_CN.UTF-8   # 中文排序
-export TZ=Asia/Shanghai
-export XDG_CONFIG_HOME=$HOME/.config
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'
-export VIRTUAL_ENV_DISABLE_PROMPT=true
 
 # Prompt
 local PR_USER PR_PROMPT PR_HOST
