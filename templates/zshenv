@@ -1,0 +1,11 @@
+source ~/.nix-profile/etc/profile.d/nix.sh
+
+export GOPATH=$HOME/apps
+export PATH=$HOME/.local/bin:$GOPATH/bin:$HOME/.yarn/bin:$PATH
+export EDITOR=vim
+export LANG=en_US.UTF-8
+export LC_CTYPE=zh_CN.UTF-8     # 中文处理
+export LC_COLLATE=zh_CN.UTF-8   # 中文排序
+export TZ=Asia/Shanghai
+export XDG_CONFIG_HOME=$HOME/.config
+export VIRTUAL_ENV_DISABLE_PROMPT=true
