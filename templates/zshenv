@@ -1,7 +1,6 @@
-source ~/.nix-profile/etc/profile.d/nix.sh
-
 export GOPATH=$HOME/apps
-export PATH=$HOME/.local/bin:$GOPATH/bin:$HOME/.yarn/bin:$PATH
+typeset -U path
+path=(~/.local/bin $GOPATH/bin ~/.yarn/bin $path[@])
 export EDITOR=vim
 export LANG=en_US.UTF-8
 export LC_CTYPE=zh_CN.UTF-8     # 中文处理
