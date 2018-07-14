@@ -1,5 +1,5 @@
 name:                dotfiles
-version:             1.2.1
+version:             1.2.2
 github:              "kaizhang91/dotfiles"
 license:             BSD3
 author:              "Kai Zhang"
@@ -21,9 +21,9 @@ description:         Please see the README on Github at <https://github.com/kaiz
 
 dependencies:
 - base >= 4.7 && < 5
-- system-filepath >= 0.4
 - optparse-applicative >= 0.14
 - shelly >= 1.7
+- system-filepath >= 0.4
 - text >= 1.2
 
 library:

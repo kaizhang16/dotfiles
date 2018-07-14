@@ -30,10 +30,10 @@ data TemplateType
 
 deploy ::
      TemplateType -> SH.FilePath -> SH.FilePath -> [SH.FilePath] -> SH.Sh ()
-deploy os templatesPath home = M.mapM_ deploy'
+deploy os templatesDir home = M.mapM_ deploy'
   where
     deploy' src =
-      case src2Template src templatesPath home of
+      case src2Template src templatesDir home of
         Nothing -> SH.errorExit ("Bad format: " <> SH.toTextIgnore src)
         Just t  -> deploy'' t
     deploy'' t
@@ -44,8 +44,8 @@ deploy os templatesPath home = M.mapM_ deploy'
         echoWarn ("Ignore " <> (SH.toTextIgnore . templateSrc) t <> ".")
 
 src2Template :: SH.FilePath -> SH.FilePath -> SH.FilePath -> Maybe Template
-src2Template src templatesPath home =
-  case T.stripPrefix (SH.toTextIgnore templatesPath) (SH.toTextIgnore src) of
+src2Template src templatesDir home =
+  case T.stripPrefix (SH.toTextIgnore templatesDir) (SH.toTextIgnore src) of
     Nothing -> Nothing
     Just src' ->
       case normalizeSrc templateType' (dropExtension src') of
