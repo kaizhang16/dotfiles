@@ -11,6 +11,8 @@ set -x RUST_SRC_PATH (rustc --print sysroot)/lib/rustlib/src/rust/src
 
 # Alias
 alias tmux "tmux -2"
+alias zz "z (cat ~/.local/share/z/data | sort -t'|' -k2,2 -nr | awk -F'|' '{print \$1}' | fzf +s)"
+
 
 # Start X at login
 if status --is-login
