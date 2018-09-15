@@ -1,8 +1,0 @@
-[Unit]
-Description=iWallpaper: An intelligent wallpaper manager
-
-[Service]
-ExecStart=/home/kai/mypy/bin/iwallpaper
-
-[Install]
-WantedBy=default.target
