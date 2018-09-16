@@ -1,7 +1,7 @@
 [user]
 	name = Kai Zhang
-	email = kaizhang91@foxmail.com
-	signingkey = kaizhang91@foxmail.com
+	email = kaizhang91@qq.com
+	signingkey = kaizhang91@qq.com
 
 [core]
 	quotepath = false
