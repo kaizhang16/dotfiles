@@ -1,0 +1,16 @@
+root:
+  askformore: false
+  autoclip: true
+  autoimport: true
+  autosync: true
+  check_recipient_hash: false
+  cliptimeout: 45
+  concurrency: 1
+  editrecipients: false
+  nocolor: false
+  noconfirm: false
+  nopager: false
+  notifications: true
+  path: gpgcli-gitcli-fs+file:///home/kai/share/password-store
+  safecontent: false
+  usesymbols: false
