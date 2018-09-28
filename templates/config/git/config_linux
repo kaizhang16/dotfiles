@@ -7,4 +7,4 @@
 	quotepath = false
 
 [commit]
-	#gpgsign = true
+	gpgsign = true
