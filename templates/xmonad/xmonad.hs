@@ -21,7 +21,7 @@ myWorkspaces =
   , "4 \xf15c"
   , "5"
   , "6"
-  , "7 \xf3fe"
+  , "7 \xf1d7"
   , "8 \xf1ab"
   , "9 \xf013"
   ]
