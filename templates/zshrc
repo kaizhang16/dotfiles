@@ -19,9 +19,6 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 # antigen-hs
 source ~/.zsh/antigen-hs/init.zsh
 
-# autojump
-source /etc/profile.d/autojump.zsh
-
 # Environment Variables
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'
 
@@ -39,7 +36,7 @@ fi
 if [[ -n "$SSH_CLIENT" || -n "$SSH2_CLIENT" ]]; then
     PR_HOST='%F{red}%M%f'  # SSH
 else
-    PR_HOST='%F{green}%M%f'  # No SSH
+    PR_HOST='%F{cyan}%M%f'  # No SSH
 fi
 
 function promptPyVirtualEnv {
@@ -53,7 +50,7 @@ function mergeSpaces {
 }
 
 local return_code="%(?..%F{red}%? ↵%f)"
-local user_host="${PR_USER}%F{cyan}@${PR_HOST}"
+local user_host="${PR_USER}%F{default}@${PR_HOST}"
 local current_dir="%B%F{blue}%~%f%b"
 PROMPT='$(mergeSpaces "╭─${user_host} ${current_dir} $(git_super_status) $(promptPyVirtualEnv)")
 $(mergeSpaces "╰─$PR_PROMPT ") '
