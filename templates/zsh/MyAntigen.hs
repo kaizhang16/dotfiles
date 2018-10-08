@@ -14,10 +14,9 @@ import Antigen (
               )
 
 bundles =
-  [ bundle "zsh-users/zsh-autosuggestions"
-  , bundle "zsh-users/zsh-history-substring-search"
+  [ bundle "kaizhang91/zsh-git-prompt"
+  , bundle "zsh-users/zsh-autosuggestions"
   , bundle "zsh-users/zsh-syntax-highlighting"
-  , bundle "kaizhang91/zsh-git-prompt"
   -- If you use a plugin that doesn't have a *.plugin.zsh file. You can set a
   -- more liberal sourcing strategy.
   --

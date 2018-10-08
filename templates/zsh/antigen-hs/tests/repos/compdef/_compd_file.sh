@@ -1,3 +1,0 @@
-#compdef blah
-
-bleh
