@@ -3,14 +3,14 @@ root:
   autoclip: true
   autoimport: true
   autosync: true
-  check_recipient_hash: false
   cliptimeout: 45
-  concurrency: 1
   editrecipients: false
   nocolor: false
   noconfirm: false
   nopager: false
-  notifications: true
   path: gpgcli-gitcli-fs+file:///home/kai/share/password-store
   safecontent: false
   usesymbols: false
+  notifications: true
+mounts: {}
+version: 1.6.11-git+HEAD

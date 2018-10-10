@@ -45,7 +45,8 @@ values."
           elm-sort-imports-on-save t)
      emacs-lisp
      git
-     go
+     (go :variables
+         go-use-gometalinter t)
      (haskell :variables
               haskell-enable-hindent t
               haskell-enable-hindent-style "johan-tibell")
