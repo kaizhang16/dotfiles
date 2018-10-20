@@ -1,4 +1,12 @@
 ################
+# Elm
+################
+# elm-package generated files
+elm-stuff
+# elm-repl generated files
+repl-temp-*
+
+################
 # Go
 ################
 # Binaries for programs and plugins
@@ -408,7 +416,7 @@ celerybeat-schedule
 *.sage.py
 
 # Environments
-.env
+# .env
 .venv
 env/
 venv/
