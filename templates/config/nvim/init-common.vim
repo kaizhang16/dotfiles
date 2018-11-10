@@ -12,6 +12,9 @@ call plug#begin('~/.vim/plugged')
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'ervandew/supertab'
 
+" Buffer
+Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
+
 " Make
 Plug 'neomake/neomake'
 
@@ -53,6 +56,7 @@ nmap <leader>t :NERDTree<CR>
 nmap <leader>= :PymodeLintAuto<CR>
 nmap <leader>bd :lclose<bar>b#<bar>bd #<CR>
 nmap <C-o> :b#<CR>
+set hidden
 
 " Python
 let g:pymode_python = 'python3'
