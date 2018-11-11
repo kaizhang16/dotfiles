@@ -12,7 +12,7 @@ myConfig =
   def {terminal = myTerminal, layoutHook = myLayout, workspaces = myWorkspaces} `additionalKeys`
   myKeys
 
-myTerminal = "urxvt -e tmux -2"
+myTerminal = "urxvt"
 
 myWorkspaces =
   [ "1 \xf0ac"
