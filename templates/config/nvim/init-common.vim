@@ -66,13 +66,14 @@ call neomake#configure#automake('w')
 
 " Shortcut
 let mapleader = ","
+nmap <leader>f :FZF<CR>
 nmap <leader>t :NERDTree<CR>
-nmap <leader>= :PymodeLintAuto<CR>
 nmap <leader>bd :lclose<bar>b#<bar>bd #<CR>
 nmap <C-o> :b#<CR>
 
 " Python
 let g:pymode_python = 'python3'
+au FileType python nmap <leader>= :PymodeLintAuto<CR>
 
 " Rust
 let g:rustfmt_autosave = 1
