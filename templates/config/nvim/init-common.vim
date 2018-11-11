@@ -9,12 +9,14 @@ call plug#begin('~/.vim/plugged')
 " Make sure you use single quotes
 
 " Auto Complete
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'ervandew/supertab'
+Plug 'lifepillar/vim-mucomplete'
 Plug 'jiangmiao/auto-pairs'
 
 " Buffer
 Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
+
+" Git
+Plug 'tpope/vim-fugitive'
 
 " Make
 Plug 'neomake/neomake'
@@ -49,28 +51,16 @@ call plug#end()
 """"""""""""""""
 " My Config
 """"""""""""""""
-" System Config
-set autoread
-set hidden
-set tabstop=2  " Show existing tab with 2 spaces width
-set shiftwidth=2  " When indenting with '>', use 2 spaces width
-set expandtab  " On pressing tab, insert 2 spaces
-set number
-set relativenumber
-
 " Auto Complete
-let g:deoplete#enable_at_startup = 1
+set completeopt+=menuone,noselect
+let g:mucomplete#enable_auto_at_startup = 1
 
 " Make
-" When writing a buffer (no delay).
-call neomake#configure#automake('w')
+call neomake#configure#automake('w')  " When writing a buffer (no delay).
 
-" Shortcut
-let mapleader = ","
-nmap <leader>f :FZF<CR>
-nmap <leader>t :NERDTree<CR>
-nmap <leader>bd :lclose<bar>b#<bar>bd #<CR>
-nmap <C-o> :b#<CR>
+" Number
+set number
+set relativenumber
 
 " Python
 let g:pymode_python = 'python3'
@@ -84,5 +74,18 @@ au FileType rust nmap gs <Plug>(rust-def-split)
 au FileType rust nmap gx <Plug>(rust-def-vertical)
 au FileType rust nmap <leader>gd <Plug>(rust-doc)
 
+" Shortcut
+nmap <Leader>r :source ~/.config/nvim/init.vim<CR>
+nmap <Leader>f :FZF<CR>
+nmap <Leader>b :Buffers<CR>
+nmap <Leader>t :NERDTree<CR>
+nmap <Leader>bd :lclose<bar>b#<bar>bd #<CR>
+nmap <C-o> :b#<CR>
+
 " Status
 let g:airline#extensions#tabline#enabled = 1
+
+" Tab
+set tabstop=4  " Show existing tab with 4 spaces width
+set shiftwidth=4  " When indenting with '>', use 4 spaces width
+set expandtab  " On pressing tab, insert spaces
