@@ -11,6 +11,7 @@ call plug#begin('~/.vim/plugged')
 " Auto Complete
 Plug 'lifepillar/vim-mucomplete'
 Plug 'jiangmiao/auto-pairs'
+Plug 'scrooloose/nerdcommenter'
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -46,9 +47,12 @@ call plug#end()
 """"""""""""""""
 " My Config
 """"""""""""""""
+filetype plugin on
+
 " Auto Complete
 set completeopt+=menuone,noselect
 let g:mucomplete#enable_auto_at_startup = 1
+let g:NERDSpaceDelims = 1
 
 " Make
 " call neomake#configure#automake('w')  " When writing a buffer (no delay).
