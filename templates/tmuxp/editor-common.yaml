@@ -6,5 +6,5 @@ windows:
     shell_command_before:
       - cd ~/projects
     panes:
-      - pane
+      - focus: true
       - pane

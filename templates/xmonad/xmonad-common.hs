@@ -12,7 +12,7 @@ myConfig =
   def {terminal = myTerminal, layoutHook = myLayout, workspaces = myWorkspaces} `additionalKeys`
   myKeys
 
-myTerminal = "urxvt"
+myTerminal = "alacritty"
 
 myWorkspaces =
   [ "1 \xf0ac"
