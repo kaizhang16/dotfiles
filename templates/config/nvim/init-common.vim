@@ -11,6 +11,7 @@ call plug#begin('~/.vim/plugged')
 " Auto Complete
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'ervandew/supertab'
+Plug 'jiangmiao/auto-pairs'
 
 " Buffer
 Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
