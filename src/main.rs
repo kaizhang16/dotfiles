@@ -1,14 +1,14 @@
 extern crate clap;
+extern crate dirs;
 extern crate dotfiles;
 
 use clap::{App, Arg};
-use std::env;
 use std::path;
 
 #[cfg(target_os = "linux")]
-const target_os: dotfiles::TargetOS = dotfiles::TargetOS::Linux;
+const TARGET_OS: dotfiles::TargetOS = dotfiles::TargetOS::Linux;
 #[cfg(target_os = "macos")]
-const target_os: dotfiles::TargetOS = dotfiles::TargetOS::MacOS;
+const TARGET_OS: dotfiles::TargetOS = dotfiles::TargetOS::MacOS;
 
 fn main() {
     let matches = App::new("dotfiles")
@@ -23,7 +23,7 @@ fn main() {
 
     dotfiles::deploy(
         path::Path::new(templates_dir),
-        env::home_dir().unwrap().as_path(),
-        &target_os,
+        dirs::home_dir().unwrap().as_path(),
+        &TARGET_OS,
     );
 }

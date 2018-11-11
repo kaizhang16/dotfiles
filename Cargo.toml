@@ -4,4 +4,5 @@ version = "2.0.0"
 authors = ["Kai Zhang <kaizhang91@qq.com>"]
 
 [dependencies]
-clap = "^2.32"
+clap = "2.32"
+dirs = "1.0"
