@@ -14,7 +14,7 @@ const TARGET_OS: TargetOS = TargetOS::MacOS;
 
 fn main() {
     let matches = clap_app!(dotfiles =>
-        (version: "2.0.0")
+        (version: &clap::crate_version!()[..])
         (author: "Kai Zhang <kaizhang91@qq.com>")
         (@arg TEMPLATES_DIR: +required "templates directory")
     ).get_matches();
