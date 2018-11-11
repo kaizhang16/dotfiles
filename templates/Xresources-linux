@@ -1,4 +1,4 @@
-URxvt.font: xft:WenQuanYi Micro Hei Mono:size=16
+URxvt.font: xft:Inconsolata:size=19
 URxvt.scrollstyle: plain
 URxvt.scrollBar_right: true
 URxvt.perl-ext-common: selection-to-clipboard

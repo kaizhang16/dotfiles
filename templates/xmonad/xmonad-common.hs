@@ -16,10 +16,10 @@ myTerminal = "urxvt -e tmux -2"
 
 myWorkspaces =
   [ "1 \xf0ac"
-  , "2 \xf044"
+  , "2 \xf121"
   , "3 \xf120"
-  , "4 \xf15c"
-  , "5"
+  , "4 \xf233"
+  , "5 \xf15c"
   , "6"
   , "7 \xf1d7"
   , "8 \xf1ab"

@@ -1,3 +1,5 @@
 .stack-work/
 dotfiles.cabal
 *~
+/target
+**/*.rs.bk
