@@ -1,6 +1,6 @@
 [package]
 name = "dotfiles"
-version = "2.0.0"
+version = "2.0.1"
 authors = ["Kai Zhang <kaizhang91@qq.com>"]
 
 [dependencies]
