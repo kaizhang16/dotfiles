@@ -1,0 +1,10 @@
+session_name: editor
+
+windows:
+  - window_name: main
+    layout: main-horizontal
+    shell_command_before:
+      - cd ~/projects
+    panes:
+      - pane
+      - pane

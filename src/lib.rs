@@ -61,10 +61,9 @@ fn link(template_path: path::PathBuf, templates_dir: &path::Path, home_dir: &pat
         template_path.to_str().unwrap(),
         link_path.to_str().unwrap()
     );
-    fs::remove_file(&link_path)
-        .expect(format!("link_path: {}", link_path.to_str().unwrap()).as_str());
-    fs::hard_link(&template_path, &link_path)
-        .expect(format!("link_path: {}", link_path.to_str().unwrap()).as_str());
+    let _ = fs::remove_file(&link_path);
+    fs::create_dir_all(link_path.parent().unwrap()).unwrap();
+    fs::hard_link(&template_path, &link_path).unwrap();
 }
 
 fn get_link_path(
