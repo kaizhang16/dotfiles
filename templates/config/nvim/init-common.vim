@@ -12,24 +12,19 @@ call plug#begin('~/.vim/plugged')
 Plug 'lifepillar/vim-mucomplete'
 Plug 'jiangmiao/auto-pairs'
 
-" Buffer
-Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
-
 " Git
 Plug 'tpope/vim-fugitive'
 
 " Make
 Plug 'neomake/neomake'
 
-" Plug 'fatih/vim-go'
-
-" Directory
+" Navigation
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin'
-
-" FZF
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+
+" Plug 'fatih/vim-go'
 
 " Python
 Plug 'python-mode/python-mode', { 'branch': 'develop' }
@@ -56,7 +51,7 @@ set completeopt+=menuone,noselect
 let g:mucomplete#enable_auto_at_startup = 1
 
 " Make
-call neomake#configure#automake('w')  " When writing a buffer (no delay).
+" call neomake#configure#automake('w')  " When writing a buffer (no delay).
 
 " Number
 set number
@@ -76,11 +71,10 @@ au FileType rust nmap <leader>gd <Plug>(rust-doc)
 
 " Shortcut
 nmap <Leader>r :source ~/.config/nvim/init.vim<CR>
-nmap <Leader>f :FZF<CR>
-nmap <Leader>b :Buffers<CR>
+nmap <Leader>ff :FZF<CR>
+nmap <Leader>fb :Buffers<CR>
 nmap <Leader>t :NERDTree<CR>
 nmap <Leader>bd :lclose<bar>b#<bar>bd #<CR>
-nmap <C-o> :b#<CR>
 
 " Status
 let g:airline#extensions#tabline#enabled = 1
