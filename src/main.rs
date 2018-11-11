@@ -1,24 +1,23 @@
+#[macro_use]
 extern crate clap;
+
 extern crate dirs;
 extern crate dotfiles;
 
-use clap::{App, Arg};
+use dotfiles::TargetOS;
 use std::path;
 
 #[cfg(target_os = "linux")]
-const TARGET_OS: dotfiles::TargetOS = dotfiles::TargetOS::Linux;
+const TARGET_OS: TargetOS = TargetOS::Linux;
 #[cfg(target_os = "macos")]
-const TARGET_OS: dotfiles::TargetOS = dotfiles::TargetOS::MacOS;
+const TARGET_OS: TargetOS = TargetOS::MacOS;
 
 fn main() {
-    let matches = App::new("dotfiles")
-        .version("0.0.1")
-        .author("Kai Zhang <kaizhang91@qq.com>")
-        .arg(
-            Arg::with_name("TEMPLATES_DIR")
-                .help("templates directory")
-                .required(true),
-        ).get_matches();
+    let matches = clap_app!(dotfiles =>
+        (version: "2.0.0")
+        (author: "Kai Zhang <kaizhang91@qq.com>")
+        (@arg TEMPLATES_DIR: +required "templates directory")
+    ).get_matches();
     let templates_dir = matches.value_of("TEMPLATES_DIR").unwrap();
 
     dotfiles::deploy(
