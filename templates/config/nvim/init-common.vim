@@ -24,6 +24,7 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'Yggdroot/indentLine'
 
 " Plug 'fatih/vim-go'
 
@@ -37,6 +38,9 @@ Plug 'racer-rust/vim-racer'
 " Status
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+
+" Theme
+Plug 'altercation/vim-colors-solarized'
 
 " Syntastic Check
 " Plug 'vim-syntastic/syntastic'
@@ -57,9 +61,10 @@ let g:NERDSpaceDelims = 1
 " Make
 " call neomake#configure#automake('w')  " When writing a buffer (no delay).
 
-" Number
-set number
-set relativenumber
+" Navigation
+set foldmethod=syntax
+hi CursorLine   cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
 
 " Python
 let g:pymode_python = 'python3'
@@ -88,3 +93,12 @@ set tabstop=4  " Show existing tab with 4 spaces width
 set shiftwidth=4  " When indenting with '>', use 4 spaces width
 set expandtab  " On pressing tab, insert spaces
 autocmd FileType yaml setlocal tabstop=2 shiftwidth=2
+
+" Theme
+set number
+set relativenumber
+syntax enable
+set background=dark
+colorscheme solarized
+set cursorline
+set cursorcolumn
