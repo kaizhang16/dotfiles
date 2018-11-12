@@ -19,8 +19,8 @@ parcellite &
 # Wallpaper
 variety &
 
-# compositor
-compton &
+# Composite manager
+xcompmgr -c &
 
 # xmonad
 exec xmonad
