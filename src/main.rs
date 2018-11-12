@@ -1,6 +1,5 @@
 #[macro_use]
 extern crate clap;
-
 extern crate dirs;
 extern crate dotfiles;
 
@@ -21,8 +20,8 @@ fn main() {
     let templates_dir = matches.value_of("TEMPLATES_DIR").unwrap();
 
     dotfiles::deploy(
-        path::Path::new(templates_dir),
-        dirs::home_dir().unwrap().as_path(),
+        &path::PathBuf::from(templates_dir),
+        &dirs::home_dir().unwrap(),
         &TARGET_OS,
     );
 }

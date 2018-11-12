@@ -1,3 +1,6 @@
+extern crate ansi_term;
+
+use ansi_term::Colour::Green;
 use std::fmt;
 use std::fs;
 use std::path;
@@ -18,15 +21,15 @@ impl fmt::Display for TargetOS {
     }
 }
 
-pub fn deploy(templates_dir: &path::Path, home_dir: &path::Path, target_os: &TargetOS) {
-    let template_paths = list_template_files(templates_dir, &target_os);
+pub fn deploy(templates_dir: &path::PathBuf, home_dir: &path::PathBuf, target_os: &TargetOS) {
+    let template_paths = list_template_files(templates_dir, target_os);
     template_paths
         .into_iter()
         .for_each(|p| link(p, templates_dir, home_dir));
-    println!("Deploy succeed.")
+    println!("{}", Green.paint("Deploy succeed."))
 }
 
-fn list_template_files(template_dir: &path::Path, target_os: &TargetOS) -> Vec<path::PathBuf> {
+fn list_template_files(template_dir: &path::PathBuf, target_os: &TargetOS) -> Vec<path::PathBuf> {
     let mut template_files = Vec::new();
     for entry in template_dir.read_dir().expect("read_dir() failed") {
         if let Ok(entry) = entry {
