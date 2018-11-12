@@ -83,7 +83,9 @@ nmap <Leader>r :source ~/.config/nvim/init.vim<CR>
 nmap <Leader>ff :FZF<CR>
 nmap <Leader>fb :Buffers<CR>
 nmap <Leader>t :NERDTree<CR>
-nmap <Leader>bd :lclose<bar>b#<bar>bd #<CR>
+nmap <Leader>bd :bp<bar>sp<bar>bn<bar>bd<CR>
+nmap <Leader>m :Neomake<CR>
+nmap <C-o> :b#<CR>
 
 " Status
 let g:airline#extensions#tabline#enabled = 1

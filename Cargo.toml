@@ -1,8 +1,9 @@
 [package]
 name = "dotfiles"
-version = "2.0.1"
+version = "2.0.2"
 authors = ["Kai Zhang <kaizhang91@qq.com>"]
 
 [dependencies]
+ansi_term = "0.11"
 clap = "2.32"
 dirs = "1.0"
