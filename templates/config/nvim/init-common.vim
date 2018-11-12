@@ -87,3 +87,4 @@ let g:airline#extensions#tabline#enabled = 1
 set tabstop=4  " Show existing tab with 4 spaces width
 set shiftwidth=4  " When indenting with '>', use 4 spaces width
 set expandtab  " On pressing tab, insert spaces
+autocmd FileType yaml setlocal tabstop=2 shiftwidth=2
