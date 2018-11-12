@@ -59,7 +59,7 @@ let g:mucomplete#enable_auto_at_startup = 1
 let g:NERDSpaceDelims = 1
 
 " Make
-" call neomake#configure#automake('w')  " When writing a buffer (no delay).
+call neomake#configure#automake('w')  " When writing a buffer (no delay).
 
 " Navigation
 set foldmethod=syntax
@@ -84,7 +84,6 @@ nmap <Leader>ff :FZF<CR>
 nmap <Leader>fb :Buffers<CR>
 nmap <Leader>t :NERDTree<CR>
 nmap <Leader>bd :bp<bar>sp<bar>bn<bar>bd<CR>
-nmap <Leader>m :Neomake<CR>
 nmap <C-o> :b#<CR>
 
 " Status
