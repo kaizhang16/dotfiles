@@ -22,38 +22,34 @@ impl fmt::Display for TargetOS {
 }
 
 pub fn deploy(templates_dir: &path::PathBuf, home_dir: &path::PathBuf, target_os: &TargetOS) {
-    let template_paths = list_template_files(templates_dir, target_os);
-    template_paths
+    list_template_paths(templates_dir)
         .into_iter()
+        .filter(|p| is_for_os(p, target_os))
         .for_each(|p| link(p, templates_dir, home_dir));
     println!("{}", Green.paint("Deploy succeed."))
 }
 
-fn list_template_files(template_dir: &path::PathBuf, target_os: &TargetOS) -> Vec<path::PathBuf> {
-    let mut template_files = Vec::new();
-    for entry in template_dir.read_dir().expect("read_dir() failed") {
-        if let Ok(entry) = entry {
-            let p = entry.path();
+fn list_template_paths(template_dir: &path::PathBuf) -> Vec<path::PathBuf> {
+    let mut template_paths = Vec::new();
+    template_dir
+        .read_dir()
+        .expect("read_dir() failed")
+        .map(|dir_entry| dir_entry.unwrap().path())
+        .skip_while(|p| p.file_name().unwrap().to_str().unwrap().starts_with("."))
+        .for_each(|p| {
             if p.is_file() {
-                template_files.push(p);
+                template_paths.push(p);
             } else {
-                let file_name = p.file_name().unwrap().to_str().unwrap();
-                if !file_name.starts_with(".") {
-                    template_files.extend(list_template_files(&entry.path(), target_os));
-                }
+                template_paths.extend(list_template_paths(&p));
             }
-        }
-    }
-    template_files
-        .into_iter()
-        .filter(|f| is_for_os(f, target_os))
-        .collect()
+        });
+    template_paths
 }
 
-fn is_for_os(template_file: &path::PathBuf, target_os: &TargetOS) -> bool {
-    let basename = template_file.file_stem().unwrap().to_str().unwrap();
-    basename.ends_with(format!("-{}", target_os).as_str())
-        || basename.ends_with(format!("-{}", TargetOS::Common).as_str())
+fn is_for_os(template_path: &path::PathBuf, target_os: &TargetOS) -> bool {
+    let file_stem = template_path.file_stem().unwrap().to_str().unwrap();
+    file_stem.ends_with(format!("-{}", target_os).as_str())
+        || file_stem.ends_with(format!("-{}", TargetOS::Common).as_str())
 }
 
 fn link(template_path: path::PathBuf, templates_dir: &path::Path, home_dir: &path::Path) {
