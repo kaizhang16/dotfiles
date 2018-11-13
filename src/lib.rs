@@ -1,6 +1,6 @@
 extern crate ansi_term;
 
-use ansi_term::Colour::Green;
+use ansi_term::Colour;
 use std::fmt;
 use std::fs;
 use std::path;
@@ -26,7 +26,7 @@ pub fn deploy(templates_dir: &path::PathBuf, home_dir: &path::PathBuf, target_os
         .into_iter()
         .filter(|p| is_for_os(p, target_os))
         .for_each(|p| link(p, templates_dir, home_dir));
-    println!("{}", Green.paint("Deploy succeed."))
+    println!("{}", Colour::Green.paint("Deploy succeed."))
 }
 
 fn list_template_paths(template_dir: &path::PathBuf) -> Vec<path::PathBuf> {
@@ -70,18 +70,17 @@ fn get_link_path(
     templates_dir: &path::Path,
     home_dir: &path::Path,
 ) -> path::PathBuf {
-    let link_file_name = template_path
+    let link_file_stem = template_path
         .file_stem()
         .unwrap()
-        .to_os_string()
-        .into_string()
-        .unwrap();
-    let link_file_name = link_file_name.trim_end_matches(format!("-{}", TargetOS::Common).as_str());
-    let link_file_name = link_file_name.trim_end_matches(format!("-{}", TargetOS::Linux).as_str());
-    let link_file_name = link_file_name.trim_end_matches(format!("-{}", TargetOS::MacOS).as_str());
+        .to_str()
+        .unwrap()
+        .trim_end_matches(format!("-{}", TargetOS::Common).as_str())
+        .trim_end_matches(format!("-{}", TargetOS::Linux).as_str())
+        .trim_end_matches(format!("-{}", TargetOS::MacOS).as_str());
     let link_file_name = match template_path.extension() {
-        Some(extension) => format!("{}.{}", link_file_name, extension.to_str().unwrap()),
-        None => String::from(link_file_name),
+        Some(extension) => format!("{}.{}", link_file_stem, extension.to_str().unwrap()),
+        None => String::from(link_file_stem),
     };
     let mut link_path = path::PathBuf::from(template_path);
     link_path.set_file_name(link_file_name);
