@@ -82,7 +82,7 @@ au FileType rust nmap <leader>gd <Plug>(rust-doc)
 nmap <Leader>r :source ~/.config/nvim/init.vim<CR>
 nmap <Leader>ff :FZF<CR>
 nmap <Leader>fb :Buffers<CR>
-nmap <Leader>t :NERDTree<CR>
+nmap <Leader>t :NERDTree %<CR>
 nmap <Leader>bd :bp<bar>sp<bar>bn<bar>bd<CR>
 nmap <C-o> :b#<CR>
 

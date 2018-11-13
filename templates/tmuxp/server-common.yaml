@@ -1,0 +1,11 @@
+session_name: server
+
+windows:
+  - window_name: server
+    focus: true
+    layout: main-horizontal
+    shell_command_before:
+      - cd ~/projects
+    panes:
+      - focus: true
+      - pane

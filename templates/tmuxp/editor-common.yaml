@@ -2,9 +2,13 @@ session_name: editor
 
 windows:
   - window_name: main
-    layout: main-horizontal
+    focus: true
     shell_command_before:
       - cd ~/projects
     panes:
       - focus: true
-      - pane
+  - window_name: cmd
+    shell_command_before:
+      - cd ~/projects
+    panes:
+      - focus: false

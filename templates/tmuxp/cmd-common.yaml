@@ -1,0 +1,11 @@
+session_name: cmd
+
+windows:
+  - window_name: cmd
+    focus: true
+    layout: main-horizontal
+    shell_command_before:
+      - cd ~/projects
+    panes:
+      - focus: true
+      - pane
