@@ -7,6 +7,6 @@
 ```
 git clone https://github.com/kaizhang91/dotfiles.git
 cd dotfiles/
-cargo install --path . --force
-dotfiles templates/
+cargo build --release
+./target/release/dotfiles templates/
 ```
