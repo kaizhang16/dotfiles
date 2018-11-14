@@ -13,6 +13,9 @@ Plug 'lifepillar/vim-mucomplete'
 Plug 'jiangmiao/auto-pairs'
 Plug 'scrooloose/nerdcommenter'
 
+" Format
+Plug 'sbdchd/neoformat'
+
 " Git
 Plug 'tpope/vim-fugitive'
 
@@ -52,31 +55,37 @@ call plug#end()
 " My Config
 """"""""""""""""
 filetype plugin on
+syntax enable
 
 " Auto Complete
 set completeopt+=menuone,noselect
 let g:mucomplete#enable_auto_at_startup = 1
 let g:NERDSpaceDelims = 1
 
+" Format
+augroup fmt
+  autocmd!
+  autocmd BufWritePre * undojoin | Neoformat
+augroup END
+let g:neoformat_basic_format_retab = 1  " Enable tab to spaces conversion
+let g:neoformat_basic_format_trim = 1  " Enable trimmming of trailing whitespace
+
 " Make
 call neomake#configure#automake('w')  " When writing a buffer (no delay).
 
 " Navigation
 set foldmethod=syntax
-hi CursorLine   cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
-hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+set foldlevel=99
 
 " Python
 let g:pymode_python = 'python3'
-au FileType python nmap <leader>= :PymodeLintAuto<CR>
 
 " Rust
-let g:rustfmt_autosave = 1
 let g:racer_experimental_completer = 1
-au FileType rust nmap gd <Plug>(rust-def)
-au FileType rust nmap gs <Plug>(rust-def-split)
-au FileType rust nmap gx <Plug>(rust-def-vertical)
-au FileType rust nmap <leader>gd <Plug>(rust-doc)
+autocmd FileType rust nmap gd <Plug>(rust-def)
+autocmd FileType rust nmap gs <Plug>(rust-def-split)
+autocmd FileType rust nmap gx <Plug>(rust-def-vertical)
+autocmd FileType rust nmap <leader>gd <Plug>(rust-doc)
 
 " Shortcut
 nmap <Leader>r :source ~/.config/nvim/init.vim<CR>
@@ -90,15 +99,14 @@ nmap <C-o> :b#<CR>
 let g:airline#extensions#tabline#enabled = 1
 
 " Tab
-set tabstop=4  " Show existing tab with 4 spaces width
-set shiftwidth=4  " When indenting with '>', use 4 spaces width
+set tabstop=2  " Show existing tab with 2 spaces width
+set shiftwidth=2  " When indenting with '>', use 2 spaces width
 set expandtab  " On pressing tab, insert spaces
-autocmd FileType yaml setlocal tabstop=2 shiftwidth=2
+" autocmd FileType vim,yaml setlocal tabstop=2 shiftwidth=2
 
 " Theme
 set number
 set relativenumber
-syntax enable
 set background=dark
 colorscheme solarized
 set cursorline
