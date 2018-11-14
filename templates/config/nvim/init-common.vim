@@ -15,12 +15,16 @@ Plug 'scrooloose/nerdcommenter'
 
 " Format
 Plug 'sbdchd/neoformat'
+Plug 'godlygeek/tabular'
 
 " Git
 Plug 'tpope/vim-fugitive'
 
 " Make
 Plug 'neomake/neomake'
+
+" Markdown
+Plug 'plasticboy/vim-markdown'
 
 " Navigation
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -87,13 +91,14 @@ autocmd FileType rust nmap gs <Plug>(rust-def-split)
 autocmd FileType rust nmap gx <Plug>(rust-def-vertical)
 autocmd FileType rust nmap <leader>gd <Plug>(rust-doc)
 
-" Shortcut
+" Shortcuts
 nmap <Leader>r :source ~/.config/nvim/init.vim<CR>
 nmap <Leader>ff :FZF<CR>
 nmap <Leader>fb :Buffers<CR>
 nmap <Leader>t :NERDTree %<CR>
 nmap <Leader>bd :bp<bar>sp<bar>bn<bar>bd<CR>
 nmap <C-o> :b#<CR>
+autocmd FileType markdown nmap <Leader>= :TableFormat<CR>
 
 " Status
 let g:airline#extensions#tabline#enabled = 1
