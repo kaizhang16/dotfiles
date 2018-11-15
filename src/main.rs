@@ -1,10 +1,7 @@
-#[macro_use]
-extern crate clap;
-extern crate dirs;
-extern crate dotfiles;
-
+use clap::{clap_app, crate_version};
+use dirs::home_dir;
 use dotfiles::TargetOS;
-use std::path;
+use std::path::PathBuf;
 
 #[cfg(target_os = "linux")]
 const TARGET_OS: TargetOS = TargetOS::Linux;
@@ -13,15 +10,15 @@ const TARGET_OS: TargetOS = TargetOS::MacOS;
 
 fn main() {
     let matches = clap_app!(dotfiles =>
-        (version: &clap::crate_version!()[..])
+        (version: &crate_version!()[..])
         (author: "Kai Zhang <kaizhang91@qq.com>")
         (@arg TEMPLATES_DIR: +required "templates directory")
     ).get_matches();
     let templates_dir = matches.value_of("TEMPLATES_DIR").unwrap();
 
     dotfiles::deploy(
-        &path::PathBuf::from(templates_dir),
-        &dirs::home_dir().unwrap(),
+        &PathBuf::from(templates_dir),
+        &home_dir().unwrap(),
         &TARGET_OS,
     );
 }
