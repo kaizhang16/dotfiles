@@ -77,6 +77,9 @@ let g:neoformat_basic_format_trim = 1  " Enable trimmming of trailing whitespace
 " Make
 call neomake#configure#automake('w')  " When writing a buffer (no delay).
 
+" Markdown
+let g:vim_markdown_conceal = 0
+
 " Navigation
 set foldmethod=syntax
 set foldlevel=99
@@ -92,13 +95,22 @@ autocmd FileType rust nmap gx <Plug>(rust-def-vertical)
 autocmd FileType rust nmap <leader>gd <Plug>(rust-doc)
 
 " Shortcuts
+" Reload config
 nmap <Leader>r :source ~/.config/nvim/init.vim<CR>
+" Find files
 nmap <Leader>ff :FZF<CR>
+" Find buffers
 nmap <Leader>fb :Buffers<CR>
+" Tree
 nmap <Leader>t :NERDTree %<CR>
+" Buffer delete
 nmap <Leader>bd :bp<bar>sp<bar>bn<bar>bd<CR>
+" Last buffer
 nmap <C-o> :b#<CR>
+" Format
 autocmd FileType markdown nmap <Leader>= :TableFormat<CR>
+" Lint
+autocmd FileType rust nmap <Leader>l :Neomake! clippy<CR>
 
 " Status
 let g:airline#extensions#tabline#enabled = 1
