@@ -97,6 +97,8 @@ autocmd FileType rust nmap <leader>gd <Plug>(rust-doc)
 " Shortcuts
 " Reload config
 nmap <Leader>r :source ~/.config/nvim/init.vim<CR>
+" Regenerate ~/.config/nvim/spell/en.utf-8.add.spl
+nmap <Leader>s :mkspell ~/.config/nvim/spell/en.utf-8.add<CR>
 " Find files
 nmap <Leader>ff :FZF<CR>
 " Find buffers
