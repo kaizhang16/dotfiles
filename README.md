@@ -5,11 +5,11 @@
 ## Deploy
 
 ```
+VERSION=2.0.5
+OS=linux  # or OS=macos
+curl -L https://github.com/kaizhang91/dotfiles/releases/download/${VERSION}/dotfiles-${OS} -o dotfiles
+chmod u+x dotfiles
+
 git clone https://github.com/kaizhang91/dotfiles.git
-cd dotfiles/
-sudo pacman -S rustup
-rustup install nightly
-rustup default nightly
-cargo build --release
-./target/release/dotfiles templates/
+./dotfiles dotfiles/templates/
 ```
