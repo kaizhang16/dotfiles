@@ -112,6 +112,9 @@ autocmd FileType markdown nmap <Leader>= :TableFormat<CR>
 " Lint
 autocmd FileType rust nmap <Leader>l :Neomake! clippy<CR>
 
+" Spell
+set spell spelllang=en_us,cjk
+
 " Status
 let g:airline#extensions#tabline#enabled = 1
 
