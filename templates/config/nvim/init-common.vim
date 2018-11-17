@@ -35,9 +35,6 @@ Plug 'Yggdroot/indentLine'
 
 " Plug 'fatih/vim-go'
 
-" Python
-Plug 'python-mode/python-mode', { 'branch': 'develop' }
-
 " Rust
 Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
@@ -80,12 +77,13 @@ call neomake#configure#automake('w')  " When writing a buffer (no delay).
 " Markdown
 let g:vim_markdown_conceal = 0
 
+" Monitor changes
+set autoread
+autocmd CursorHold * checktime
+
 " Navigation
 set foldmethod=syntax
 set foldlevel=99
-
-" Python
-let g:pymode_python = 'python3'
 
 " Rust
 let g:racer_experimental_completer = 1
