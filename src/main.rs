@@ -1,4 +1,4 @@
-use clap::{clap_app, crate_version};
+use clap::{clap_app, crate_authors, crate_version};
 use dirs::home_dir;
 use dotfiles::TargetOS;
 use std::path::PathBuf;
@@ -10,10 +10,11 @@ const TARGET_OS: TargetOS = TargetOS::MacOS;
 
 fn main() {
     let matches = clap_app!(dotfiles =>
-        (version: &crate_version!()[..])
-        (author: "Kai Zhang <kaizhang91@qq.com>")
+        (version: crate_version!())
+        (author: crate_authors!())
         (@arg TEMPLATES_DIR: +required "templates directory")
-    ).get_matches();
+    )
+    .get_matches();
     let templates_dir = matches.value_of("TEMPLATES_DIR").unwrap();
 
     dotfiles::deploy(

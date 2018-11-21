@@ -1,0 +1,69 @@
+[[snippets]]
+  description = "寻找体积最大的 5 个目录"
+  command = "du -hs * | sort -rh | head -5"
+  output = ""
+
+[[snippets]]
+  description = "markdown -> pdf"
+  command = "pandoc main.md -o main.pdf -t latex --pdf-engine=xelatex --data-dir=$HOME/.config/pandoc --template=default-zh.latex -V urlcolor=Emerald -V citecolor=YellowOrange -V fontsize=12pt -V lang=zh -V papersize=a4 -V documentclass=article -V linestretch=1.4 -V CJKmainfont=\"Source Han Serif CN\" -V CJKoptions=\"BoldFont=Source Han Sans CN\" -V geometry=\"top=1.2in,bottom=1.2in,left=1.2in,right=1in\" -F pandoc-crossref -F pandoc-citeproc -M crossrefYaml=$HOME/.config/pandoc/crossref-zh.yaml"
+  output = ""
+
+[[snippets]]
+  description = "markdown -> docx"
+  command = "pandoc main.md -o main.docx -t docx -F pandoc-crossref -F pandoc-citeproc -M crossrefYaml=$HOME/.config/pandoc/crossref-zh.yaml"
+  output = ""
+
+[[snippets]]
+  description = "markdown -> reveal.js"
+  command = "pandoc main.md -o main.html -t revealjs --self-contained -V revealjs-url=/home/kai/apps/src/github.com/hakimel/reveal.js"
+  output = ""
+
+[[snippets]]
+  description = "剪切板管理"
+  command = "gpaste-client ui"
+  output = ""
+
+[[snippets]]
+  description = "在终端里启动 emacs 客户端"
+  command = "emacsclient -t"
+  output = ""
+
+[[snippets]]
+  description = "Exit Emacs"
+  command = "C-x C-c"
+  output = ""
+
+[[snippets]]
+  description = "清理 systemd 日志"
+  command = "journalctl --vacuum-size=500M"
+  output = ""
+
+[[snippets]]
+  description = "Arch Linux: 删除 $pkg"
+  command = "pacman -R $pkg"
+  output = ""
+
+[[snippets]]
+  description = "Arch Linux: 删除 $pkg 及其依赖"
+  command = "pacman -Rs $pkg"
+  output = ""
+
+[[snippets]]
+  description = "重置 windows 网络"
+  command = "netsh winsock reset"
+  output = ""
+
+[[snippets]]
+  description = "uncompress tar.bz3 file"
+  command = "tar -xjvf for.tar.bz2"
+  output = ""
+
+[[snippets]]
+  description = "uncompress .tar.xz file"
+  command = "tar -xJvf foo.tar.xz"
+  output = ""
+
+[[snippets]]
+  description = "打印 pandoc 的默认 LaTeX 模板"
+  command = "pandoc -D latex"
+  output = ""
