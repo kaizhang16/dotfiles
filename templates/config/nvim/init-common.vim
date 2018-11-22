@@ -36,6 +36,10 @@ Plug 'Yggdroot/indentLine'
 
 " Plug 'fatih/vim-go'
 
+" Pandoc
+" Plug 'vim-pandoc/vim-pandoc'
+" Plug 'vim-pandoc/vim-pandoc-syntax'
+
 " Rust
 Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
@@ -76,14 +80,14 @@ let g:neoformat_run_all_formatters = 1
 let g:neoformat_enabled_python = ['yapf', 'isort']
 
 " indentLine
-let g:indentLine_conceallevel = 0
+let g:indentLine_concealcursor = ""
 
 " Make
 call neomake#configure#automake('w')  " When writing a buffer (no delay).
 let g:neomake_python_enabled_makers = ['pep8']
 
 " Markdown
-let g:vim_markdown_conceal = 0
+autocmd BufNewFile,BufRead *.pandoc setfiletype markdown
 
 " Monitor changes
 set autoread
@@ -139,3 +143,4 @@ set background=dark
 colorscheme solarized
 set cursorline
 set cursorcolumn
+set concealcursor=""
