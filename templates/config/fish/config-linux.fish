@@ -16,7 +16,6 @@ set -x CXX clang++
 alias tmux "tmux -2"
 alias zz "z (cat ~/.local/share/z/data | sort -t'|' -k2,2 -nr | awk -F'|' '{print \$1}' | fzf +s)"
 
-
 # Start X at login
 if status --is-login
   if test -z "$DISPLAY" -a "$XDG_VTNR" = 1

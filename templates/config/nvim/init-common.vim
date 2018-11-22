@@ -9,7 +9,8 @@ call plug#begin('~/.vim/plugged')
 " Make sure you use single quotes
 
 " Auto Complete
-Plug 'lifepillar/vim-mucomplete'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'lifepillar/vim-mucomplete'
 Plug 'jiangmiao/auto-pairs'
 Plug 'scrooloose/nerdcommenter'
 
@@ -59,8 +60,9 @@ filetype plugin on
 syntax enable
 
 " Auto Complete
-set completeopt+=menuone,noselect
-let g:mucomplete#enable_auto_at_startup = 1
+let g:deoplete#enable_at_startup = 1
+" set completeopt+=menuone,noselect
+" let g:mucomplete#enable_auto_at_startup = 1
 let g:NERDSpaceDelims = 1
 
 " Format
@@ -70,9 +72,15 @@ augroup fmt
 augroup END
 let g:neoformat_basic_format_retab = 1  " Enable tab to spaces conversion
 let g:neoformat_basic_format_trim = 1  " Enable trimmming of trailing whitespace
+let g:neoformat_run_all_formatters = 1
+let g:neoformat_enabled_python = ['yapf', 'isort']
+
+" indentLine
+let g:indentLine_conceallevel = 0
 
 " Make
 call neomake#configure#automake('w')  " When writing a buffer (no delay).
+let g:neomake_python_enabled_makers = ['pep8']
 
 " Markdown
 let g:vim_markdown_conceal = 0
