@@ -3,6 +3,7 @@ extern crate ansi_term;
 use ansi_term::Colour;
 use std::fmt;
 use std::fs;
+use std::os::unix::fs::symlink;
 use std::path;
 
 pub enum TargetOS {
@@ -62,7 +63,7 @@ fn link(template_path: path::PathBuf, templates_dir: &path::Path, home_dir: &pat
     );
     let _ = fs::remove_file(&link_path);
     fs::create_dir_all(link_path.parent().unwrap()).unwrap();
-    fs::hard_link(&template_path, &link_path).unwrap();
+    symlink(&template_path, &link_path).unwrap();
 }
 
 fn get_link_path(

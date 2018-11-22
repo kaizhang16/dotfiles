@@ -9,7 +9,8 @@ call plug#begin('~/.vim/plugged')
 " Make sure you use single quotes
 
 " Auto Complete
-Plug 'lifepillar/vim-mucomplete'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'lifepillar/vim-mucomplete'
 Plug 'jiangmiao/auto-pairs'
 Plug 'scrooloose/nerdcommenter'
 
@@ -57,11 +58,11 @@ call plug#end()
 """"""""""""""""
 filetype plugin on
 syntax enable
-set hidden
 
 " Auto Complete
-set completeopt+=menuone,noselect
-let g:mucomplete#enable_auto_at_startup = 1
+let g:deoplete#enable_at_startup = 1
+" set completeopt+=menuone,noselect
+" let g:mucomplete#enable_auto_at_startup = 1
 let g:NERDSpaceDelims = 1
 
 " Format
