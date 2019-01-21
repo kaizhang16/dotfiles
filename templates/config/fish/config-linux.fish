@@ -11,6 +11,7 @@ set -x RUSTUP_UPDATE_ROOT https://mirrors.ustc.edu.cn/rust-static/rustup
 set -x RUST_SRC_PATH (rustc --print sysroot)/lib/rustlib/src/rust/src
 set -x CC clang
 set -x CXX clang++
+set -x _JAVA_AWT_WM_NONREPARENTING 1
 
 # Alias
 alias tmux "tmux -2"
