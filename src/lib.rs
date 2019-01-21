@@ -6,6 +6,8 @@ use std::fs;
 use std::os::unix::fs::symlink;
 use std::path;
 
+const BACKUP_FILE_STEM: &str = "bak";
+
 pub enum TargetOS {
     Common,
     Linux,
@@ -37,6 +39,7 @@ fn list_template_paths(template_dir: &path::PathBuf) -> Vec<path::PathBuf> {
         .expect("read_dir() failed")
         .map(|dir_entry| dir_entry.unwrap().path())
         .skip_while(|p| p.file_name().unwrap().to_str().unwrap().starts_with("."))
+        .skip_while(|p| p.file_stem().unwrap().to_str().unwrap() == BACKUP_FILE_STEM)
         .for_each(|p| {
             if p.is_file() {
                 template_paths.push(p);
