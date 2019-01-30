@@ -519,3 +519,4 @@ TSWLatexianTemp*
 ################
 result
 .idea
+*.cache*
