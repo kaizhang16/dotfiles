@@ -10,6 +10,11 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod1
+set $transparent #00000000
+set $backgroundColor #22222299
+set $borderColor #33333300
+set $active_text_color #ffff00
+set $inactive_text_color #888888
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -174,6 +179,12 @@ bar {
   i3bar_command i3bar -t
 
   colors {
-    background #00000000
+    background $transparent
+    # class            border       background       text
+    focused_workspace  $borderColor $backgroundColor $active_text_color
+    inactive_workspace $borderColor $backgroundColor $inactive_text_color
   }
 }
+
+# class                 border       background       text               indicator    child_border
+client.focused          $borderColor $backgroundColor $active_text_color $borderColor $borderColor
