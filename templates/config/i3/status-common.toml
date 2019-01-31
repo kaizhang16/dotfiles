@@ -1,0 +1,24 @@
+theme = "slick"
+icons = "awesome"
+
+[[block]]
+block = "memory"
+display_type = "memory"
+format_mem = "{Mup}%"
+format_swap = "{SUp}%"
+
+[[block]]
+block = "load"
+interval = 1
+format = "{1m}"
+
+[[block]]
+block = "net"
+device = "enp0s3"
+speed_down = true
+speed_up = true
+
+[[block]]
+block = "time"
+interval = 1
+format = "%Y-%m-%d %H:%M:%S"

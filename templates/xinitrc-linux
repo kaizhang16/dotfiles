@@ -5,7 +5,7 @@ VBoxClient-all
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 
 # Trayer
-trayer --edge top --align right --widthtype request --heighttype request --SetDockType true --transparent true &
+# trayer --edge top --align right --widthtype request --heighttype request --SetDockType true --transparent true &
 
 # Fcitx
 fcitx &
@@ -22,5 +22,6 @@ variety &
 # Composite manager
 xcompmgr -c &
 
-# xmonad
-exec xmonad
+# Window manager
+# exec xmonad
+exec i3
