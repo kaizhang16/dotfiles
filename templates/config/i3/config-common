@@ -186,5 +186,6 @@ bar {
   }
 }
 
-# class                 border       background       text               indicator    child_border
-client.focused          $borderColor $backgroundColor $active_text_color $borderColor $borderColor
+# class                 border       background       text                 indicator    child_border
+client.focused          $borderColor $backgroundColor $active_text_color   $borderColor $borderColor
+client.unfocused        $borderColor $backgroundColor $inactive_text_color $borderColor $borderColor
