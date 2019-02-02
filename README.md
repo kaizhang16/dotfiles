@@ -7,9 +7,9 @@
 ```
 VERSION=2.1.0
 OS=linux  # or OS=macos
-curl -L https://github.com/kaizhang91/dotfiles/releases/download/${VERSION}/dotfiles-${OS} -o dotfiles
-chmod u+x dotfiles
+curl -L https://github.com/kaizhang91/dotfiles/releases/download/${VERSION}/dotfiles-${OS} -o dotfiles-bin
+chmod u+x dotfiles-bin
 
 git clone https://github.com/kaizhang91/dotfiles.git
-./dotfiles dotfiles/templates/
+./dotfiles-bin dotfiles/templates/
 ```
