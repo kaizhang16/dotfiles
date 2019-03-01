@@ -1,0 +1,12 @@
+{
+    "window.zoomLevel": 2,
+    "editor.formatOnSave": true,
+    "editor.lineNumbers": "relative",
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+    },
+    "java.errors.incompleteClasspath.severity": "ignore"
+}
