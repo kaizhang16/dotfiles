@@ -29,7 +29,7 @@
 # Enable autocomplete layer
 [[layers]]
 name = 'autocomplete'
-auto-completion-return-key-behavior = "complete"
+auto-completion-return-key-behavior = "smart"
 auto-completion-tab-key-behavior = "smart"
 
 [[layers]]
@@ -40,3 +40,6 @@ name = "lang#java"
 
 [[layers]]
 name = "lang#markdown"
+
+[[layers]]
+name = "lang#vue"
