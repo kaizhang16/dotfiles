@@ -2,9 +2,6 @@ theme = "slick"
 icons = "awesome"
 
 [[block]]
-block = "battery"
-
-[[block]]
 block = "memory"
 display_type = "memory"
 format_mem = "{Mup}%"
