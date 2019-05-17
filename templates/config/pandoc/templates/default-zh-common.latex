@@ -271,7 +271,7 @@ $endif$
 \usepackage{minted}
 \definecolor{codebackground}{HTML}{ECECEC}
 \definecolor{codehighlight}{HTML}{FAD6A5}
-\setminted{bgcolor=codebackground,frame=single,rulecolor=codebackground,framesep=-0.2mm,xleftmargin=1.8mm,xrightmargin=1.8mm,highlightcolor=codehighlight}
+\setminted{bgcolor=codebackground,frame=single,rulecolor=codebackground,framesep=-0.2mm,xleftmargin=1.8mm,xrightmargin=1.8mm,highlightcolor=codehighlight,breaklines}
 \usepackage{sectsty}
 \sectionfont{\centering}
 \newCJKfontfamily[liukai]\liukai{FZSuXinShiLiuKaiS-R-GB}

@@ -1,14 +1,14 @@
-################
+#####################
 # Elm
-################
+#####################
 # elm-package generated files
 elm-stuff
 # elm-repl generated files
 repl-temp-*
 
-################
+#####################
 # Go
-################
+#####################
 # Binaries for programs and plugins
 *.exe
 *.exe~
@@ -22,9 +22,9 @@ repl-temp-*
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 
-################
+#####################
 # Haskell
-################
+#####################
 dist
 dist-*
 cabal-dev
@@ -48,9 +48,9 @@ cabal.project.local~
 .HTF/
 .ghc.environment.*
 
-################
+#####################
 # macOS
-################
+#####################
 # General
 .DS_Store
 .AppleDouble
@@ -79,9 +79,9 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-################
+#####################
 # Node
-################
+#####################
 # Logs
 logs
 *.log
@@ -156,9 +156,9 @@ typings/
 # Serverless directories
 .serverless
 
-################
+#####################
 # Python
-################
+#####################
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -264,9 +264,9 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-################
+#####################
 # TeX
-################
+#####################
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
@@ -514,9 +514,18 @@ TSWLatexianTemp*
 # generated if using elsarticle.cls
 *.spl
 
-################
+#####################
+# Visual Studio Code
+#####################
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+#####################
 # My
-################
+#####################
 result
 .idea
 *.cache*

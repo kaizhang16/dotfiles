@@ -1,12 +1,25 @@
 {
-    "window.zoomLevel": 2,
-    "editor.formatOnSave": true,
-    "editor.lineNumbers": "relative",
-    "files.exclude": {
-        "**/.classpath": true,
-        "**/.project": true,
-        "**/.settings": true,
-        "**/.factorypath": true
-    },
-    "java.errors.incompleteClasspath.severity": "ignore"
+  "window.zoomLevel": 2,
+  "editor.formatOnSave": true,
+  "editor.lineNumbers": "relative",
+  "files.exclude": {
+    "**/.classpath": true,
+    "**/.project": true,
+    "**/.settings": true,
+    "**/.factorypath": true
+  },
+  "java.errors.incompleteClasspath.severity": "ignore",
+  "java.format.settings.url": "",
+  "java.format.settings.profile": "",
+  "editor.wordWrap": "on",
+  "python.jediEnabled": false,
+  "editor.suggestSelection": "first",
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  "explorer.confirmDragAndDrop": false,
+  "java.format.enabled": false,
+  "clang-format.language.javascript.enable": false,
+  "xml.format.splitAttributes": true,
+  "xml.format.enabled": false,
+  "python.venvPath": "~/.virtualenvs",
+  "python.formatting.provider": "yapf"
 }
