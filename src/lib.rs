@@ -3,7 +3,6 @@ extern crate ansi_term;
 use ansi_term::Colour;
 use std::fmt;
 use std::fs;
-use std::os::unix::fs::symlink;
 use std::path;
 
 const BACKUP_EXTENSION: &str = "bak";
@@ -28,7 +27,7 @@ pub fn deploy(templates_dir: &path::PathBuf, home_dir: &path::PathBuf, target_os
     list_template_paths(templates_dir)
         .into_iter()
         .filter(|p| is_for_os(p, target_os))
-        .for_each(|p| link(p, templates_dir, home_dir));
+        .for_each(|p| deploy_one_template(p, templates_dir, home_dir));
     println!("{}", Colour::Green.paint("Deploy succeed."))
 }
 
@@ -41,7 +40,7 @@ fn list_template_paths(template_dir: &path::PathBuf) -> Vec<path::PathBuf> {
         .skip_while(|p| p.file_name().unwrap().to_str().unwrap().starts_with("."))
         .skip_while(|p| match p.extension() {
             Some(extension) => extension.to_str().unwrap() == BACKUP_EXTENSION,
-            None => false
+            None => false,
         })
         .for_each(|p| {
             if p.is_file() {
@@ -59,20 +58,24 @@ fn is_for_os(template_path: &path::PathBuf, target_os: &TargetOS) -> bool {
         || file_stem.ends_with(format!("-{}", TargetOS::Common).as_str())
 }
 
-fn link(template_path: path::PathBuf, templates_dir: &path::Path, home_dir: &path::Path) {
-    let link_path = get_link_path(&template_path, templates_dir, home_dir);
+fn deploy_one_template(
+    template_path: path::PathBuf,
+    templates_dir: &path::Path,
+    home_dir: &path::Path,
+) {
+    let dest_path = get_dest_path(&template_path, templates_dir, home_dir);
     let template_path = template_path.canonicalize().unwrap();
     println!(
         "Deploying {} -> {} ...",
         template_path.to_str().unwrap(),
-        link_path.to_str().unwrap()
+        dest_path.to_str().unwrap()
     );
-    let _ = fs::remove_file(&link_path);
-    fs::create_dir_all(link_path.parent().unwrap()).unwrap();
-    symlink(&template_path, &link_path).unwrap();
+    let _ = fs::remove_file(&dest_path);
+    fs::create_dir_all(dest_path.parent().unwrap()).unwrap();
+    fs::copy(&template_path, &dest_path).unwrap();
 }
 
-fn get_link_path(
+fn get_dest_path(
     template_path: &path::PathBuf,
     templates_dir: &path::Path,
     home_dir: &path::Path,
@@ -89,12 +92,12 @@ fn get_link_path(
         Some(extension) => format!("{}.{}", link_file_stem, extension.to_str().unwrap()),
         None => String::from(link_file_stem),
     };
-    let mut link_path = path::PathBuf::from(template_path);
-    link_path.set_file_name(link_file_name);
-    let link_path = link_path.strip_prefix(templates_dir).unwrap();
+    let mut dest_path = path::PathBuf::from(template_path);
+    dest_path.set_file_name(link_file_name);
+    let dest_path = dest_path.strip_prefix(templates_dir).unwrap();
     path::PathBuf::from(format!(
         "{}/.{}",
         home_dir.to_str().unwrap(),
-        link_path.to_str().unwrap()
+        dest_path.to_str().unwrap()
     ))
 }
