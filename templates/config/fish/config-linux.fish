@@ -1,5 +1,5 @@
 # Environment Variables
-set -U fish_user_paths ~/.local/bin ~/.cargo/bin ~/.config/yarn/global/node_modules/.bin ~/.fzf/bin
+set -U fish_user_paths ~/.local/bin ~/.cargo/bin ~/.fzf/bin
 set -x EDITOR nvim
 set -x LANG en_US.UTF-8
 set -x LC_CTYPE zh_CN.UTF-8     # 中文处理
