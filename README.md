@@ -5,7 +5,7 @@
 ## Deploy
 
 ```
-VERSION=2.2.0
+VERSION=2.2.1
 OS=linux  # or OS=macos
 curl -L https://github.com/kaizhang91/dotfiles/releases/download/${VERSION}/dotfiles-${OS} -o dotfiles-bin
 chmod u+x dotfiles-bin
